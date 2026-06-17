@@ -7,13 +7,36 @@ import SecurityPolicies from './components/SecurityPolicies';
 import { X, CheckCircle, MessageSquare } from 'lucide-react';
 
 export default function App() {
+  // Helper to parse URL path to initial state
+  const parseUrl = () => {
+    const path = window.location.pathname;
+    if (path === '/privacy') {
+      return { viewMode: 'privacy', activeTab: 'inbox' };
+    }
+    if (path === '/security') {
+      return { viewMode: 'security', activeTab: 'inbox' };
+    }
+    if (path.startsWith('/app')) {
+      const parts = path.split('/');
+      const tab = parts[2] || 'inbox';
+      const validTabs = ['inbox', 'contacts', 'platform', 'team', 'automations', 'ai', 'analytics', 'settings'];
+      return { 
+        viewMode: 'app', 
+        activeTab: validTabs.includes(tab) ? tab : 'inbox' 
+      };
+    }
+    return { viewMode: 'landing', activeTab: 'inbox' };
+  };
+
+  const initialRoute = parseUrl();
+
   // 1. Global App States
   const [theme, setTheme] = React.useState(() => {
     return localStorage.getItem('chathub-theme') || 'light';
   });
   
-  const [viewMode, setViewMode] = React.useState('landing'); // 'landing' or 'app'
-  const [activeTab, setActiveTab] = React.useState('inbox');
+  const [viewMode, setViewMode] = React.useState(initialRoute.viewMode); // 'landing', 'app', 'privacy', 'security'
+  const [activeTab, setActiveTab] = React.useState(initialRoute.activeTab);
   const [toasts, setToasts] = React.useState([]);
   const [authModal, setAuthModal] = React.useState({ isOpen: false, type: 'login' });
   const [customAlert, setCustomAlert] = React.useState(null); // { type, message, title, onConfirm }
@@ -73,6 +96,33 @@ export default function App() {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('chathub-theme', theme);
   }, [theme]);
+
+  const getUrlForState = (view, tab) => {
+    if (view === 'privacy') return '/privacy';
+    if (view === 'security') return '/security';
+    if (view === 'app') return `/app/${tab}`;
+    return '/';
+  };
+
+  // Sync state -> URL
+  React.useEffect(() => {
+    const currentPath = window.location.pathname;
+    const targetPath = getUrlForState(viewMode, activeTab);
+    if (currentPath !== targetPath) {
+      window.history.pushState(null, '', targetPath);
+    }
+  }, [viewMode, activeTab]);
+
+  // Sync URL -> state (handles back/forward navigation)
+  React.useEffect(() => {
+    const handlePopState = () => {
+      const { viewMode: newView, activeTab: newTab } = parseUrl();
+      setViewMode(newView);
+      setActiveTab(newTab);
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   React.useEffect(() => {
     const originalAlert = window.alert;
