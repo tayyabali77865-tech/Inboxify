@@ -927,6 +927,13 @@ export default function LandingPage({ setViewMode, integrations, setIntegrations
               <a href="#" className="hover-link">Careers</a>
               <a 
                 href="#" 
+                onClick={(e) => { e.preventDefault(); setViewMode('terms'); }} 
+                className="hover-link"
+              >
+                Terms of Service
+              </a>
+              <a 
+                href="#" 
                 onClick={(e) => { e.preventDefault(); setViewMode('privacy'); }} 
                 className="hover-link"
               >
@@ -968,7 +975,13 @@ export default function LandingPage({ setViewMode, integrations, setIntegrations
         }}>
           <span className="footer-copyright">&copy; {new Date().getFullYear()} ChatHub Inc. All rights reserved.</span>
           <div style={{ display: 'flex', gap: '20px' }} className="footer-bottom-links">
-            <a href="#" className="hover-link">Terms of Service</a>
+            <a 
+              href="#" 
+              onClick={(e) => { e.preventDefault(); setViewMode('terms'); }} 
+              className="hover-link"
+            >
+              Terms of Service
+            </a>
             <a 
               href="#" 
               onClick={(e) => { e.preventDefault(); setViewMode('privacy'); }} 

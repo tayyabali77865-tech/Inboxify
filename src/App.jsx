@@ -4,6 +4,7 @@ import LandingPage from './components/LandingPage';
 import AppPortal from './components/AppPortal';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import SecurityPolicies from './components/SecurityPolicies';
+import TermsOfService from './components/TermsOfService';
 import { X, CheckCircle, MessageSquare } from 'lucide-react';
 
 export default function App() {
@@ -15,6 +16,9 @@ export default function App() {
     }
     if (path === '/security') {
       return { viewMode: 'security', activeTab: 'inbox' };
+    }
+    if (path === '/terms') {
+      return { viewMode: 'terms', activeTab: 'inbox' };
     }
     if (path.startsWith('/app')) {
       const parts = path.split('/');
@@ -100,6 +104,7 @@ export default function App() {
   const getUrlForState = (view, tab) => {
     if (view === 'privacy') return '/privacy';
     if (view === 'security') return '/security';
+    if (view === 'terms') return '/terms';
     if (view === 'app') return `/app/${tab}`;
     return '/';
   };
@@ -162,8 +167,8 @@ export default function App() {
 
   return (
     <div style={{ minHeight: '100vh', transition: 'var(--transition)' }}>
-      {/* 1. Global Navigation header (Shown on Landing, Privacy, and Security modes) */}
-      {(viewMode === 'landing' || viewMode === 'privacy' || viewMode === 'security') && (
+      {/* 1. Global Navigation header (Shown on Landing, Privacy, Security, and Terms modes) */}
+      {(viewMode === 'landing' || viewMode === 'privacy' || viewMode === 'security' || viewMode === 'terms') && (
         <Navbar 
           theme={theme} 
           toggleTheme={toggleTheme} 
@@ -212,6 +217,10 @@ export default function App() {
 
       {viewMode === 'security' && (
         <SecurityPolicies setViewMode={setViewMode} />
+      )}
+
+      {viewMode === 'terms' && (
+        <TermsOfService setViewMode={setViewMode} />
       )}
 
       {/* Auth Modal Overlay */}
