@@ -1,5 +1,5 @@
 import React from 'react';
-import { Shield, Eye, Lock, FileText, Globe, ArrowLeft } from 'lucide-react';
+import { Shield, Eye, Lock, FileText, Globe, ArrowLeft, Trash2 } from 'lucide-react';
 
 export default function PrivacyPolicy({ setViewMode }) {
   React.useEffect(() => {
@@ -130,6 +130,21 @@ export default function PrivacyPolicy({ setViewMode }) {
             </h2>
             <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', lineHeight: '1.6' }}>
               We use secure browser cookies and localStorage mechanisms (like saving your custom themes and WhatsApp connection preferences) to persist settings locally. This ensures your dashboard session functions correctly and speeds up workspace load times.
+            </p>
+          </section>
+
+          <div style={{ height: '1px', backgroundColor: 'var(--border-color)' }} />
+
+          <section id="data-deletion">
+            <h2 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '12px', color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Trash2 size={18} style={{ color: 'var(--danger)' }} />
+              5. Data Deletion Instructions
+            </h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', lineHeight: '1.6' }}>
+              To delete your synced platform accounts, API tokens, or workspace databases, go to the <strong>Settings</strong> tab in your dashboard, disconnect your integration channels, and click <strong>Clear Cache / Revoke Access</strong>.
+            </p>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', lineHeight: '1.6', marginTop: '8px' }}>
+              If you wish to request full deletion of all personal and account logs from our systems, please contact our support team at <strong>support@chathub.com</strong>. We will process your deletion request and remove all stored data within 24 hours.
             </p>
           </section>
         </div>
