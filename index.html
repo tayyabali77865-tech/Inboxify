@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/src/assets/react.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ChatHub - Unified Customer Messaging Inbox & CRM</title>
+    <meta name="description" content="ChatHub connects all your social media messaging platforms into one single collaborative workspace. Reply faster, automate greetings, and manage customer relations." />
+    <script>
+      (function() {
+        var savedTheme = localStorage.getItem('chathub-theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      })();
+    </script>
+    <style>
+      html, body {
+        background-color: #f8fafc;
+      }
+      html[data-theme="dark"], html[data-theme="dark"] body {
+        background-color: #09090e;
+      }
+    </style>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@1.21.0/index.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

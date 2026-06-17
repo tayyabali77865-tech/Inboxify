@@ -1,0 +1,409 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+/* Style Tokens & Variables */
+:root {
+  --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Theme variables - Light Mode (Default) */
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f1f5f9;
+  --bg-glass: rgba(255, 255, 255, 0.7);
+  --border-glass: rgba(226, 232, 240, 0.8);
+  --border-color: #e2e8f0;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --primary-light: #e0e7ff;
+  --secondary: #ec4899;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+  --whatsapp-bg: #efeae2;
+  --whatsapp-overlay: rgba(248, 250, 252, 0.95);
+  --whatsapp-bubble-sent: #d9fdd3;
+  --whatsapp-bubble-rcvd: #ffffff;
+  --sidebar-width: 260px;
+  --navbar-height: 70px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="dark"] {
+  /* Theme variables - Dark Mode */
+  --bg-primary: #09090e;
+  --bg-secondary: #121221;
+  --bg-tertiary: #1a1a2e;
+  --bg-glass: rgba(18, 18, 33, 0.7);
+  --border-glass: rgba(255, 255, 255, 0.06);
+  --border-color: #22223b;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --primary: #a855f7;
+  --primary-hover: #9333ea;
+  --primary-light: rgba(168, 85, 247, 0.15);
+  --secondary: #f43f5e;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #f43f5e;
+  --shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+  --whatsapp-bg: #0b141a;
+  --whatsapp-overlay: rgba(18, 18, 33, 0.95);
+  --whatsapp-bubble-sent: #005c4b;
+  --whatsapp-bubble-rcvd: #202c33;
+}
+
+/* Global Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.5;
+  transition: var(--transition);
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* Scrollbar Customization */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Glassmorphism utility */
+.glass-panel {
+  background: var(--bg-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-glass);
+  box-shadow: var(--shadow);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.8; }
+}
+
+.animate-fade {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.animate-slide {
+  animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.pulse-active {
+  animation: pulse-soft 2s infinite ease-in-out;
+}
+
+/* Layout Utilities */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  text-transform: capitalize;
+}
+
+.badge-lead { background-color: var(--primary-light); color: var(--primary); }
+.badge-customer { background-color: rgba(16, 185, 129, 0.15); color: var(--success); }
+.badge-partner { background-color: rgba(245, 158, 11, 0.15); color: var(--warning); }
+.badge-vip { background-color: rgba(236, 72, 153, 0.15); color: var(--secondary); }
+
+/* Common Form Components */
+.form-input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  transition: var(--transition);
+}
+.form-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+/* Fix select/option visibility in dark mode */
+select.form-input,
+select {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+select option {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+[data-theme="dark"] select.form-input,
+[data-theme="dark"] select {
+  background-color: #1a1a2e;
+  color: #f8fafc;
+}
+[data-theme="dark"] select option {
+  background-color: #1a1a2e;
+  color: #f8fafc;
+}
+
+/* Custom System & Modal Role select styling */
+.system-role-select {
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  width: auto;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-radius: var(--radius-sm);
+}
+.modal-role-select {
+  width: 100%;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  transition: var(--transition);
+}
+.btn-primary {
+  background-color: var(--primary);
+  color: #ffffff;
+}
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+}
+.btn-secondary {
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  background-color: var(--bg-secondary);
+}
+.btn-secondary:hover {
+  background-color: var(--bg-tertiary);
+}
+
+/* Modals */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.2s ease;
+}
+.modal-content {
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
+  position: relative;
+  animation: fadeIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 16px;
+    margin: 12px;
+    max-width: calc(100vw - 24px);
+    border-radius: var(--radius-sm);
+  }
+  .modal-content h3 {
+    font-size: 1rem !important;
+    margin-bottom: 14px !important;
+  }
+  .modal-content .form-input {
+    padding: 8px 10px;
+    font-size: 0.82rem;
+  }
+  .modal-content select.form-input {
+    width: 100%;
+    max-width: 100%;
+    font-size: 0.82rem;
+  }
+  .modal-content select.modal-role-select {
+    width: auto !important;
+    max-width: 180px !important;
+    font-size: 0.75rem !important;
+    padding: 6px 8px !important;
+    text-overflow: ellipsis;
+  }
+  .modal-content label {
+    font-size: 0.75rem !important;
+  }
+  .modal-content .btn {
+    padding: 7px 12px;
+    font-size: 0.82rem;
+  }
+}
+
+/* Toast Notifications */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.toast {
+  background-color: var(--bg-secondary);
+  border-left: 4px solid var(--primary);
+  padding: 12px 20px;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: fadeIn 0.3s ease, slideIn 0.3s ease;
+  border: 1px solid var(--border-color);
+}
+.toast-success { border-left-color: var(--success); }
+.toast-error { border-left-color: var(--danger); }
+
+/* Unified Responsive Styles */
+@media (max-width: 1024px) {
+  :root {
+    --sidebar-width: 0px;
+  }
+}
+
+@media (max-width: 850px) {
+  .system-role-select {
+    font-size: 0.72rem !important;
+    padding: 3px 6px !important;
+    max-width: 90px !important;
+  }
+}
+
+@media (min-width: 850px) and (max-width: 960px) {
+  .modal-content {
+    max-width: 880px !important;
+    width: 90% !important;
+    padding: 16px 20px !important;
+  }
+  .modal-content h3 {
+    font-size: 1.1rem !important;
+    margin-bottom: 14px !important;
+  }
+  .modal-content form {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: flex-end !important;
+    gap: 10px !important;
+  }
+  .modal-content form > div {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    margin-bottom: 0 !important;
+  }
+  .modal-content form > div:last-child {
+    flex: 0 0 auto !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+  .modal-content .form-input {
+    font-size: 0.78rem !important;
+    padding: 6px 10px !important;
+  }
+  .modal-content select.modal-role-select {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .modal-content label {
+    font-size: 0.72rem !important;
+    margin-bottom: 4px !important;
+    white-space: nowrap !important;
+  }
+  .modal-content .btn {
+    padding: 7px 12px !important;
+    font-size: 0.78rem !important;
+    white-space: nowrap !important;
+  }
+}
